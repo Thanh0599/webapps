@@ -24,6 +24,7 @@ pipeline {
         stage ('Source Composition Analysis') {
       steps {
          sh 'mkdir New'
+         sh 'cd New'
          sh 'git clone https://github.com/LoveMeSensei/webapp.git'
          sh 'cd /webapp'
          sh 'chmod +x owasp-dependency-check.sh'
