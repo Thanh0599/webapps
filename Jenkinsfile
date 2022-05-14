@@ -52,5 +52,13 @@ pipeline {
               }      
            }       
         }
+
+         stage ('DAST') {
+      steps {
+        sshagent(['tomcat']) {
+                sh 'ssh -o  StrictHostKeyChecking=no ec2-user@3.93.213.31 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://54.234.61.152:8080/webapp/" || true'
+                }
+            }
+        }
     }
 }
