@@ -26,7 +26,7 @@ pipeline {
          sh 'wget "https://raw.githubusercontent.com/Thanh0599/webapps/master/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.html'
+         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.csv'
             }
         }
 
