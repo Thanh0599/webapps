@@ -26,7 +26,7 @@ pipeline {
          sh 'wget "https://raw.githubusercontent.com/Thanh0599/webapps/master/owasp-dependency-check.sh" '
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.csv'
+         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
             }
         }
 
@@ -48,7 +48,7 @@ pipeline {
         stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.212.219.23:/prod/apache-tomcat-8.5.78/webapps/webapp.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@54.226.8.158:/prod/apache-tomcat-8.5.78/webapps/webapp.war'
               }      
            }       
         }
@@ -56,7 +56,7 @@ pipeline {
          stage ('DAST') {
       steps {
         sshagent(['tomcat']) {
-                sh 'ssh -o  StrictHostKeyChecking=no ec2-user@44.202.50.71 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://18.212.219.23:8080/webapp/" || true'
+                sh 'ssh -o  StrictHostKeyChecking=no ec2-user@3.89.196.10 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://54.226.8.158:8080/webapp/" || true'
                 }
             }
         }
