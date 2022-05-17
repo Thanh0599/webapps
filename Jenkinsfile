@@ -48,7 +48,7 @@ pipeline {
         stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@54.196.255.240:/prod/apache-tomcat-8.5.78/webapps/webapp.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.212.219.23:/prod/apache-tomcat-8.5.78/webapps/webapp.war'
               }      
            }       
         }
@@ -56,7 +56,7 @@ pipeline {
          stage ('DAST') {
       steps {
         sshagent(['tomcat']) {
-                sh 'ssh -o  StrictHostKeyChecking=no ec2-user@44.202.55.88 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://54.196.255.240:8080/webapp/" || true'
+                sh 'ssh -o  StrictHostKeyChecking=no ec2-user@44.202.50.71 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://18.212.219.23:8080/webapp/" || true'
                 }
             }
         }
